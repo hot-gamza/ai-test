@@ -13,21 +13,22 @@ def allowed_file(filename):
 
 @bp.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == 'POST':
-        filenames = []
-        files = request.files.getlist('file')
-        for file in files:
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                filepath = os.path.join(UPLOAD_FOLDER, filename)
-                file.save(filepath)
-                filenames.append(filename)
+    # if request.method == 'POST':
+    #     filenames = []
+    #     files = request.files.getlist('file')
+    #     print(files)
+    #     for file in files:
+    #         if file and allowed_file(file.filename):
+    #             filename = secure_filename(file.filename)
+    #             filepath = os.path.join(UPLOAD_FOLDER, filename)
+    #             file.save(filepath)
+    #             filenames.append(filename)
                 
                 #TODO logic은 여기에 추가하시오.
+        print('asdads')
 
-        return render_template('result.html', filenames=filenames) 
-
-    return render_template('index.html')
+        # return render_template('result.html', filenames=filenames) 
+    # return render_template('index.html')
 
 
 

@@ -2,7 +2,7 @@ from gfpgan import GFPGANer
 import torch
 import numpy as np
 from PIL import Image
-import cv2
+import os
 
 def gfpgan_gogo(img):
     '''
@@ -10,12 +10,12 @@ def gfpgan_gogo(img):
         gfpgan_gogo(페이스 스왑한 이미지)
     '''
     img = Image.open(img)
-    # img = Image.fromarray(img)
     original_img = img.copy()
     np_img = np.array(img)
 
+    model_path = os.path.join('models', 'GFPGANv1.4.pth')
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    model = GFPGANer(model_path=r'../models/GFPGANv1.4.pth', upscale=1, arch='clean', channel_multiplier=2, bg_upsampler=None, device=device)
+    model = GFPGANer(model_path=model_path, upscale=1, arch='clean', channel_multiplier=2, bg_upsampler=None, device=device)
     np_img_bgr = np_img[:, :, ::-1]
     _, _, gfpgan_output_bgr = model.enhance(np_img_bgr, has_aligned=False, only_center_face=False, paste_back=True)
     np_img = gfpgan_output_bgr[:, :, ::-1]
@@ -24,8 +24,9 @@ def gfpgan_gogo(img):
     result_img = Image.blend(
         original_img, restored_img, 1
     )
+    
     # result_img.show()
     return result_img    
 
 if __name__ == '__main__':
-    gfpgan_gogo('ej2.jpg')
+    gfpgan_gogo('images/ej2.jpg')
