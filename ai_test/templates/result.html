@@ -9,7 +9,7 @@
 
 <!-- 결과 이미지 표시 -->
 {% for filename in filenames %}
-    <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Result Image">
+    <img src="{{ url_for('static', filename=filename) }}" alt="Result Image">
 {% endfor %}
 
 </body>

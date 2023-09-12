@@ -4,12 +4,12 @@ import datetime
 import numpy as np
 from PIL import Image
 from insightface.app import FaceAnalysis
-from gfpgan_model import gfpgan_gogo
+from .gfpgan_model import gfpgan_gogo
 
 app = FaceAnalysis(name='buffalo_l')
 app.prepare(ctx_id=0, det_size=(640, 640))
 swapper = insightface.model_zoo.get_model(
-    r'../models/inswapper_128.onnx', download=False, download_zip=False)
+    r'C:\Users\User\Desktop\project\ai-test\ai_test\models\inswapper_128.onnx', download=False, download_zip=False)
 
 
 def faceswap(template_img, male_face_img, female_face_img):
@@ -52,6 +52,3 @@ def faceswap(template_img, male_face_img, female_face_img):
     print(f"saved a file successfully. {fn}")
 
     return gfp_result
-
-if __name__ == '__main__':
-    faceswap(r'../images/couple.jpg',r'../images/lake.jpg',r'../images/karina.jpg')

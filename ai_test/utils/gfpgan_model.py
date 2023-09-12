@@ -26,6 +26,3 @@ def gfpgan_gogo(img):
     )
     # result_img.show()
     return result_img    
-
-if __name__ == '__main__':
-    gfpgan_gogo('ej2.jpg')
