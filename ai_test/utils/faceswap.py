@@ -45,10 +45,10 @@ def faceswap(template_img, male_face_img, female_face_img):
                 result = swapper.get(result, find_face, male_copy_face, paste_back=True)
         cnt+=1
 
-    cv2.imwrite(f'../images/result/result.jpg', result)
+    cv2.imwrite(r'../images/result/result.jpg', result)
     gfp_result = np.array(gfpgan_gogo(f'../images/result/result.jpg'))
     gfp_result = cv2.cvtColor(gfp_result, cv2.COLOR_BGR2RGB)
-    cv2.imwrite(f'../images/result/{fn}', gfp_result)
+    cv2.imwrite(fr'../images/result/{fn}', gfp_result)
     print(f"saved a file successfully. {fn}")
 
     return gfp_result
