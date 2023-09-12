@@ -5,7 +5,6 @@ import numpy as np
 from PIL import Image
 from insightface.app import FaceAnalysis
 from gfpgan_model import gfpgan_gogo
-from gfpgan_model2 import gfpgan_gogo2
 
 app = FaceAnalysis(name='buffalo_l')
 app.prepare(ctx_id=0, det_size=(640, 640))
@@ -15,7 +14,7 @@ swapper = insightface.model_zoo.get_model(
 
 def faceswap(template_img, male_face_img, female_face_img):
     '''
-        faceswap(템플릿 이미지, 합성 얼굴 이미지)
+        faceswap(템플릿 이미지, 남자, 여자)
     '''
 
     # 커플 템플릿
@@ -51,9 +50,6 @@ def faceswap(template_img, male_face_img, female_face_img):
     gfp_result = cv2.cvtColor(gfp_result, cv2.COLOR_BGR2RGB)
     cv2.imwrite(f'../images/result/{fn}', gfp_result)
     print(f"saved a file successfully. {fn}")
-
-    # gfp_result2 = np.array(gfpgan_gogo2(result))
-    # cv2.imwrite(f'../images/result/2-{fn}', gfp_result2)
 
     return gfp_result
 
