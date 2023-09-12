@@ -1,2 +1,4 @@
-models
+*.pth
+*.onnx
+*.h5
 __pycache__
