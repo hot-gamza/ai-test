@@ -7,11 +7,11 @@ from insightface.app import FaceAnalysis
 from gfpgan_model import gfpgan_gogo
 import os
 
+inswapper_path = os.path.join('models', 'inswapper_128.onnx')
+result_path = os.path.join('images', 'result', 'result.jpg')
 
 app = FaceAnalysis(name='buffalo_l')
 app.prepare(ctx_id=0, det_size=(640, 640))
-inswapper_path = os.path.join('models', 'inswapper_128.onnx')
-result_path = os.path.join('images', 'result', 'result.jpg')
 swapper = insightface.model_zoo.get_model(inswapper_path, download=False, download_zip=False)
 
 def faceswap(template_img, male_face_img, female_face_img):

@@ -24,7 +24,7 @@ def gfpgan_gogo(img):
     result_img = Image.blend(
         original_img, restored_img, 1
     )
-    
+
     # result_img.show()
     return result_img    
 
