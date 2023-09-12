@@ -4,13 +4,13 @@ import numpy as np
 from PIL import Image
 import cv2
 
-def gfpgan_gogo(img):
+def gfpgan_gogo2(img):
     '''
         gfp 업스케일링 적용
         gfpgan_gogo(페이스 스왑한 이미지)
     '''
-    img = Image.open(img)
-    # img = Image.fromarray(img)
+    # img = Image.open(img)
+    img = Image.fromarray(img)
     original_img = img.copy()
     np_img = np.array(img)
 
@@ -28,4 +28,4 @@ def gfpgan_gogo(img):
     return result_img    
 
 if __name__ == '__main__':
-    gfpgan_gogo('ej2.jpg')
+    gfpgan_gogo2('ej2.jpg')
