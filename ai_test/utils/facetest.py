@@ -4,32 +4,27 @@ import datetime
 import numpy as np
 from PIL import Image
 from insightface.app import FaceAnalysis
-from .gfpgan_model import gfpgan_gogo
+from gfpgan_model import gfpgan_gogo
 import os
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-inswapper_path = os.path.join(current_dir, '..', 'models', 'inswapper_128.onnx')
-result_path = os.path.join(current_dir, '..', 'images', 'result', 'result.jpg')
+inswapper_path = os.path.join('models', 'inswapper_128.onnx')
+result_path = os.path.join('images', 'result', 'result.jpg')
 
 app = FaceAnalysis(name='buffalo_l')
 app.prepare(ctx_id=0, det_size=(640, 640))
 swapper = insightface.model_zoo.get_model(inswapper_path, download=False, download_zip=False)
 
 def faceswap(template_img, male_face_img, female_face_img):
-    print(f"Current working directory: {os.getcwd()}")
-    print(type(male_face_img), male_face_img)
     '''
         faceswap(템플릿 이미지, 남자, 여자)
     '''
+
     # 커플 템플릿
     template_img = cv2.imread(template_img)
     template_faces = app.get(template_img)
     print("detected number of faces: ", len(template_faces))
     dn = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     fn = f'fs_{dn}.jpg'
-    # 상대 경로 설정
-
-
 
     # 얼굴 이미지
     male_img_read = cv2.imread(male_face_img)
@@ -55,14 +50,10 @@ def faceswap(template_img, male_face_img, female_face_img):
     cv2.imwrite(result_path, result)
     gfp_result = np.array(gfpgan_gogo(result_path))
     gfp_result = cv2.cvtColor(gfp_result, cv2.COLOR_BGR2RGB)
-
-    relative_path = os.path.join('ai_test', 'images', 'result', fn)
-    cv2.imwrite(relative_path, gfp_result)
-    print(f"File saved at: {relative_path}")
-
+    cv2.imwrite(os.path.join('images', 'result', fn), gfp_result)
     print(f"saved a file successfully. {fn}")
-    print(f"File saved at: {os.path.join('images', 'result', fn)}")
 
-    
+    return gfp_result
 
-    return [os.path.join('images', 'result', fn)] # 이미지 경로를 리스트로 반환
+if __name__ == '__main__':
+    faceswap(r'images/couple.jpg',r'images/lake.jpg',r'images/karina.jpg')
