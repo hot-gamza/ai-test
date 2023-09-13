@@ -4,10 +4,10 @@ import datetime
 import numpy as np
 from PIL import Image
 from insightface.app import FaceAnalysis
-from gfpgan_model import gfpgan_gogo
+from .gfpgan_model import gfpgan_gogo
 import os
 
-inswapper_path = os.path.join('models', 'inswapper_128.onnx')
+inswapper_path = os.path.join(os.path.abspath('.'), 'models', 'inswapper_128.onnx')
 result_path = os.path.join('images', 'result', 'result.jpg')
 
 app = FaceAnalysis(name='buffalo_l')
@@ -56,4 +56,4 @@ def faceswap(template_img, male_face_img, female_face_img):
     return gfp_result
 
 if __name__ == '__main__':
-    faceswap(r'images/couple.jpg',r'images/lake.jpg',r'images/karina.jpg')
+    faceswap(r'images/cozy.jpeg',r'images/lake.jpg',r'images/karina2.png')
