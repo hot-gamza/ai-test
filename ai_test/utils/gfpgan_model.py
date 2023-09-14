@@ -13,7 +13,10 @@ def gfpgan_gogo(img):
     original_img = img.copy()
     np_img = np.array(img)
 
-    model_path = os.path.join('models', 'GFPGANv1.4.pth')
+    current_directory = os.getcwd()
+    model_path = os.path.join(current_directory, 'ai_test', 'models', 'GFPGANv1.4.pth')
+
+
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     model = GFPGANer(model_path=model_path, upscale=1, arch='clean', channel_multiplier=2, bg_upsampler=None, device=device)
     np_img_bgr = np_img[:, :, ::-1]
@@ -27,6 +30,3 @@ def gfpgan_gogo(img):
 
     # result_img.show()
     return result_img    
-
-if __name__ == '__main__':
-    gfpgan_gogo('images/ej2.jpg')
